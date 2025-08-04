@@ -1,0 +1,74 @@
+:root {
+    --gold: rgb(235, 238, 8);
+}
+
+.input-todo {
+    padding: 15px;
+    font-family: "PT Sans", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.todo-list {
+    display: flex;
+    justify-content: center;
+}
+
+.remove-button {
+    margin-left: auto;
+    background-color: var(--gold);
+    border: none;
+    color: black;
+    font-size: 25px;
+    border-radius: 50px;
+}
+
+// Add this new class for the container of todo items
+.todo-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 1rem;
+}
+
+// Modify the existing .list class
+.list {
+    width: 200px; // smaller fixed width
+    display: flex;
+    justify-content: space-between; // space between text and button
+    padding: 0.8rem;
+    margin: 0; // remove margin since we're using gap
+    color: black;
+    border-radius: 30px;
+    background-color: var(--gold);
+    word-wrap: break-word;    
+    word-break: break-word;
+    white-space: normal;
+    max-width: 100%;
+    overflow-y: auto;
+}
+
+.DateTime {
+    color: var(--gold);
+    justify-items: center;
+    margin-bottom: 3rem;
+    font-family: "PT Sans", sans-serif;
+    font-weight: 900;
+    font-style: "normal";
+}
+
+li {
+    display: inline;
+}
+
+.navbar {
+    justify-content: center;
+    background-color: var(--gold);
+    display: flex;
+    gap: 20px;
+    border: 20px;
+    border-width: 50px;
+    
+}
+
