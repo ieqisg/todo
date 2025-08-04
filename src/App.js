@@ -62,7 +62,7 @@ function App() {
           <div className="todo-container">
             {todo.map((item, index) => (
               <h6 className="list" key={index}>
-                {item}
+                <span className="list-item">{item}</span>
                 <button className="remove-button" onClick={() => remove(index)}>
                   <i className="bi bi-check-circle-fill"></i>
                 </button>

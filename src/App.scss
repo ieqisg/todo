@@ -1,11 +1,16 @@
 :root {
     --gold: rgb(235, 238, 8);
 }
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+
 
 .input-todo {
-    padding: 15px;
-    font-family: "PT Sans", sans-serif;
-    font-weight: 900;
+    padding: 1rem;
+    height: 3rem;
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
     font-style: normal;
 }
 
@@ -15,7 +20,8 @@
 }
 
 .remove-button {
-    margin-left: auto;
+    position: relative;
+    bottom: .3rem;
     background-color: var(--gold);
     border: none;
     color: black;
@@ -39,7 +45,6 @@
     justify-content: space-between; // space between text and button
     padding: 0.8rem;
     margin: 0; // remove margin since we're using gap
-    color: black;
     border-radius: 30px;
     background-color: var(--gold);
     word-wrap: break-word;    
@@ -47,28 +52,63 @@
     white-space: normal;
     max-width: 100%;
     overflow-y: auto;
+    text-align: center;
+    padding-top: 1.5rem;
+    color: black;
+    
 }
+
+.list-item {
+    font-family: "Chela One", system-ui;
+    font-weight: 900;
+    font-style: normal;
+    font-size: 1.3rem;
+    position: relative;
+    bottom: .1rem;
+}
+
+
 
 .DateTime {
     color: var(--gold);
     justify-items: center;
     margin-bottom: 3rem;
-    font-family: "PT Sans", sans-serif;
-    font-weight: 900;
-    font-style: "normal";
 }
 
-li {
-    display: inline;
-}
+
 
 .navbar {
     justify-content: center;
     background-color: var(--gold);
     display: flex;
     gap: 20px;
-    border: 20px;
-    border-width: 50px;
+    text-decoration: none;
+    position: sticky;
+    top: 0;
     
+}
+
+
+
+.navbar {
+    li {
+        a {
+            text-decoration: none;
+            color: black;
+            font-family: "Bebas Neue", sans-serif;
+            font-weight: 900;
+            font-style: normal;
+            font-size: 1.5rem;
+            
+            &:hover {
+                color: red;  
+            } 
+
+            &.active {
+                color: red;
+                font-weight: bold;
+            }
+        }
+    }
 }
 

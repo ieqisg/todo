@@ -9,9 +9,9 @@ function Main() {
     <Router>
       <NaviBar />
       <Routes>
-        <Route path="/App" element={<App />} />
-        <Route path="/completed" element={<Completed />} />
-        <Route path="/deadlines" element={<Deadlines />} />
+        <Route path="/" element={<App />} />
+        <Route path="/pages/completed" element={<Completed />} />
+        <Route path="/pages/deadlines" element={<Deadlines />} />
       </Routes>
     </Router>
   );
