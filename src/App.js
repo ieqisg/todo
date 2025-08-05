@@ -38,7 +38,7 @@ function App({ completedList, setCompletedList }) {
     const newFinished = [...prevFinished, item];
     setCompletedList(newFinished);
     localStorage.setItem('FINISHED_TASKS', JSON.stringify(newFinished));
-    e.preventDefault();
+    
     }
 
   

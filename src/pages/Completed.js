@@ -16,14 +16,20 @@ function Completed({completedList ,  setCompletedList}) {
     }, [finishedTasks]) 
 
     
+    const clearTasks = () => {
+        localStorage.removeItem('FINISHED_TASKS')
+        setFinishedTasks([])
+    }
+    
     
     return (
-        <div>
-            <div>
-                {finishedTasks.map((item, index) => (
-                <h1 key={index}>
-                    <span>{item}</span>
-                </h1>
+        <div >
+            <div className='header'>
+                <button style={{position: 'absolute', right: '5rem', padding:'2rem' }} onClick={() => clearTasks()}>Tite</button>
+                <h1>Completed Tasks:</h1>
+            </div>
+            <div className='body'>
+            {finishedTasks.map((item, index) => ( <h1 key={index}> {item} </h1>
                 ))}
             </div>
         </div>
