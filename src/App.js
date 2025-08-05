@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import './App.scss'
 import DateTime from './date'
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
-function App() {
+function App({ completedList, setCompletedList }) {
   
   
   let [input, setInput] = useState(""); 
@@ -21,26 +20,34 @@ function App() {
     localStorage.setItem("savedTodoList", JSON.stringify(todo)); //saved the todo into localStorage
   }, [todo]) 
 
-  let submit = (e,item) => { // when clicked, triggers the submit function
+  let submit = (e) => { // when clicked, triggers the submit function
     if (input === "") {
       alert("You can't put an empty shit"); 
       } else {
         setTodo(todo => [...todo, input]) //stores the inputted values to todo
         setInput("") // sets the placeholder empty after submitting
       }
-    
-    
     e.preventDefault(); // prevents reloading when submitting (or enter)
   }
-  const remove = (index) => { //when clicked, triggers the remove function
-    setTodo(todo => todo.filter((_, i) => i !== index)) //removes the element that matches with the index
-    
+
+  
+
+  const remove = (index, item, e ) => { //when clicked, triggers the remove function
+    setTodo(todo => todo.filter((_, i) =>  i !== index)); //removes the element that matches with the index
+    const prevFinished = JSON.parse(localStorage.getItem('FINISHED_TASKS')) || [];
+    const newFinished = [...prevFinished, item];
+    setCompletedList(newFinished);
+    localStorage.setItem('FINISHED_TASKS', JSON.stringify(newFinished));
+    e.preventDefault();
     }
+
+  
   
   return (
     
     <div class="pt-3 m-3">
-      <div className="DateTime">
+    
+      <div className="DateTime"> 
         <DateTime/>
       </div>
       <div>
@@ -63,14 +70,14 @@ function App() {
             {todo.map((item, index) => (
               <h6 className="list" key={index}>
                 <span className="list-item">{item}</span>
-                <button className="remove-button" onClick={() => remove(index)}>
+                <button className="remove-button" onClick={(e) => remove(index, item, e)}>
                   <i className="bi bi-check-circle-fill"></i>
                 </button>
               </h6>
             ))}
           </div>
       </div>
-      
+    
     </div>
   );
 }
