@@ -13,7 +13,7 @@ function NaviBar() {
             <ul style={{display:'flex', gap:'2rem', padding:'1%', marginBottom:'0px', listStyle:'none'  }}>
                 <li><NavLink to='/'>Home</NavLink></li>
                 <li><NavLink to='/pages/Completed'>Completed Tasks</NavLink></li>
-                <li><NavLink to='/pages/Deadlines'>Set Deadline</NavLink></li>
+                
             </ul>
         </nav>
         

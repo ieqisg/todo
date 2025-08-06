@@ -1,7 +1,75 @@
-.body {
-    text-align: center;
-    
+ .floating-button {
+  position: fixed;       /* stays fixed while scrolling */
+  bottom: 20px;          /* distance from the bottom of the viewport */
+  right: 20px;           /* distance from the right of the viewport */
+  width: 100px;           /* size of the button */
+  height: 100px;
+  background-color: var(--gold); /* blue background (adjust as needed) */
+  border-radius: 50%;    /* perfect circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 9999;         /* stays above other content */
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  color: black;
+  font-weight: 700;
+  border: none;
 }
-.header {
-    text-align: center;
+
+.floating-button:hover {
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.list.removing {
+  opacity: 0;
+  transform: translateX(20px) scale(0.98);
+}
+
+.todo-container {
+  overflow: hidden;
+}
+
+/* base list style (keep your existing rules if any) */
+.list {
+  
+  /* keep your padding rule you already use via inline style; this is fallback */
+  padding: 1.5rem;
+  transition: transform 400ms ease, opacity 400ms ease;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* slide-out modifier - moves it to the right and fades out */
+.list.slide-out {
+  transform: translateX(100%); /* slide fully to right */
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* optional: smoother stacking while animating */
+.todo-container .list {
+  will-change: transform, opacity;
+}
+
+@media (max-width: 768px) {
+  .floating-button {
+    width:  75px;
+    height: 75px;
+    bottom: 15px;
+    right: 15px;
+    font-size: 15px;
+  }
+}
+  
+
+@media (max-width: 480px) {
+  .floating-button {
+    width: 60px;
+    height: 60px;
+    bottom: 12px;
+    right: 12px;
+    font-size: 10px;
+  }
 }
