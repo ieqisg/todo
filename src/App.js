@@ -16,6 +16,9 @@ function App({ completedList, setCompletedList }) {
     return [];
   });
 
+  // Track which items are being added for animation
+  const [addingIndexes, setAddingIndexes] = useState([]);
+
   // Track which items are being removed for animation
   const [removingIndexes, setRemovingIndexes] = useState([]);
 
@@ -26,10 +29,17 @@ function App({ completedList, setCompletedList }) {
   let submit = (e) => { // when clicked, triggers the submit function
     if (input === "") {
       alert("You can't put an empty shit"); 
-      } else {
-        setTodo(todo => [...todo, input]) //stores the inputted values to todo
-        setInput("") // sets the placeholder empty after submitting
-      }
+    } else {
+      setTodo(todo => {
+        const newTodos = [...todo, input];
+        setAddingIndexes((prev) => [...prev, newTodos.length - 1]);
+        setTimeout(() => {
+          setAddingIndexes((prev) => prev.filter((i) => i !== newTodos.length - 1));
+        }, 400); // Match the CSS transition duration
+        return newTodos;
+      });
+      setInput("");
+    }
     e.preventDefault(); // prevents reloading when submitting (or enter)
   }
 
@@ -75,8 +85,9 @@ function App({ completedList, setCompletedList }) {
           <div className="todo-container">
             {todo.map((item, index) => {
               const isRemoving = removingIndexes.includes(index);
+              const isAdding = addingIndexes.includes(index);
               return (
-                <h6 className={`list${isRemoving ? ' removing' : ''}`} key={index}>
+                <h6 className={`list${isRemoving ? ' removing' : ''}${isAdding ? ' adding' : ''}`} key={index}>
                   <span className="list-item">{item}</span>
                   <button className="remove-button" onClick={(e) => remove(index, item, e)} disabled={isRemoving}>
                     <i className="bi bi-check-circle-fill"></i>
