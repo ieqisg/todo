@@ -32,19 +32,26 @@
 // Add this new class for the container of todo items
 .todo-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 1rem;
-    justify-content: center;
+    align-items: center;
     padding: 1rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
+    min-height: 50px; // Ensure container stays visible even when empty
 }
 
 // Modify the existing .list class
 .list {
-    width: 200px; // smaller fixed width
+    width: 200px;
     display: flex;
-    justify-content: space-between; // space between text and button
+    justify-content: space-between;
     padding: 0.8rem;
-    margin: 0; // remove margin since we're using gap
+    margin: 0;
     border-radius: 30px;
     background-color: var(--gold);
     word-wrap: break-word;    
@@ -55,13 +62,25 @@
     text-align: center;
     padding-top: 1.5rem;
     color: black;
-    
 }
+
 
 .list-item {
     font-size: 1.3rem;
     position: relative;
     bottom: .3rem;
+}
+
+// Animation class for removing the whole list container
+.list {
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4,0,0.2,1), max-height 0.4s cubic-bezier(0.4,0,0.2,1), margin 0.4s, padding 0.4s;
+    width: 100%;
+}
+.list.removing {
+    opacity: 0;
+    transform: translateX(-200%);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    overflow: hidden;
 }
 
 
@@ -82,7 +101,7 @@
     text-decoration: none;
     position: sticky;
     top: 0;
-    
+    z-index: 100;
 }
 
 

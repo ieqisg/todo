@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import './App.scss'
 import DateTime from './date'
 
@@ -8,13 +8,16 @@ function App({ completedList, setCompletedList }) {
   
   
   let [input, setInput] = useState(""); 
-  let [todo,setTodo] = useState(() => {
-  const saved = localStorage.getItem("savedTodoList"); //gets the saved item from localStorage
-    if (saved) { 
-      return JSON.parse(saved) 
+  let [todo, setTodo] = useState(() => {
+    const saved = localStorage.getItem("savedTodoList");
+    if (saved) {
+      return JSON.parse(saved);
     }
-    return []
-  })
+    return [];
+  });
+
+  // Track which items are being removed for animation
+  const [removingIndexes, setRemovingIndexes] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("savedTodoList", JSON.stringify(todo)); //saved the todo into localStorage
@@ -32,14 +35,17 @@ function App({ completedList, setCompletedList }) {
 
   
 
-  const remove = (index, item, e ) => { //when clicked, triggers the remove function
-    setTodo(todo => todo.filter((_, i) =>  i !== index)); //removes the element that matches with the index
-    const prevFinished = JSON.parse(localStorage.getItem('FINISHED_TASKS')) || [];
-    const newFinished = [...prevFinished, item];
-    setCompletedList(newFinished);
-    localStorage.setItem('FINISHED_TASKS', JSON.stringify(newFinished));
-    
-    }
+  const remove = (index, item, e) => {
+    setRemovingIndexes((prev) => [...prev, index]);
+    setTimeout(() => {
+      setTodo((todo) => todo.filter((_, i) => i !== index));
+      setRemovingIndexes((prev) => prev.filter((i) => i !== index));
+      const prevFinished = JSON.parse(localStorage.getItem('FINISHED_TASKS')) || [];
+      const newFinished = [...prevFinished, item];
+      setCompletedList(newFinished);
+      localStorage.setItem('FINISHED_TASKS', JSON.stringify(newFinished));
+    }, 400); // Match the CSS transition duration
+  };
 
   
   
@@ -67,14 +73,17 @@ function App({ completedList, setCompletedList }) {
           
           <h1 className="todo-list">TODO LIST:</h1>
           <div className="todo-container">
-            {todo.map((item, index) => (
-              <h6 className="list" key={index}>
-                <span className="list-item">{item}</span>
-                <button className="remove-button" onClick={(e) => remove(index, item, e)}>
-                  <i className="bi bi-check-circle-fill"></i>
-                </button>
-              </h6>
-            ))}
+            {todo.map((item, index) => {
+              const isRemoving = removingIndexes.includes(index);
+              return (
+                <h6 className={`list${isRemoving ? ' removing' : ''}`} key={index}>
+                  <span className="list-item">{item}</span>
+                  <button className="remove-button" onClick={(e) => remove(index, item, e)} disabled={isRemoving}>
+                    <i className="bi bi-check-circle-fill"></i>
+                  </button>
+                </h6>
+              );
+            })}
           </div>
       </div>
     
